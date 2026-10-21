@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>粗花 ROUGHCUT 報價</title>
+<meta name="description" content="粗花 ROUGHCUT 報價計算機 — 選擇服務項目，即時算出預估價格。">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap">
+<style>
+:root {
+  --bg: #F0E6D8;
+  --surface: #f7f1e8;
+  --surface-alt: #e6dacb;
+  --fg: #141210;
+  --fg-dim: #6b5f52;
+  --accent: #C4603A;
+  --accent-hover: #D4785A;
+  --accent-soft: #f0ddd4;
+  --teal: #4A7B7B;
+  --teal-light: #6BA3A3;
+  --gold: #D49B50;
+  --border: #d4c8b8;
+  --radius: 14px;
+  --font-display: 'Noto Serif TC', serif;
+  --font-mono: 'DejaVu Sans Mono', 'Courier New', monospace;
+  --font-body: 'Noto Sans TC', 'DM Sans', sans-serif;
+  --font-en: 'DM Sans', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141210;
+    --surface: #1e1b18;
+    --surface-alt: #2a2520;
+    --fg: #F0E6D8;
+    --fg-dim: #9a8e80;
+    --accent: #D4785A;
+    --accent-hover: #e08a6a;
+    --accent-soft: #2e1f17;
+    --teal: #6BA3A3;
+    --teal-light: #7fb8b8;
+    --gold: #D49B50;
+    --border: #3a332c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141210;
+  --surface: #1e1b18;
+  --surface-alt: #2a2520;
+  --fg: #F0E6D8;
+  --fg-dim: #9a8e80;
+  --accent: #D4785A;
+  --accent-hover: #e08a6a;
+  --accent-soft: #2e1f17;
+  --teal: #6BA3A3;
+  --teal-light: #7fb8b8;
+  --gold: #D49B50;
+  --border: #3a332c;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  padding: 0 16px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrapper {
+  max-width: 520px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 32px 0 48px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.header .logo {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto -20px;
+}
+.header h1 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 2px;
+}
+.header .brand-en {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+}
+.header p {
+  color: var(--fg-dim);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.header .tagline {
+  font-size: 0.8125rem;
+  color: var(--teal);
+  margin-top: 2px;
+}
+
+.progress-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 32px;
+}
+.progress-dot {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background 0.3s ease;
+}
+.progress-dot.active {
+  background: var(--accent);
+}
+
+.step {
+  display: none;
+  animation: fadeIn 0.35s ease;
+}
+.step.visible {
+  display: block;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-question {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.step-hint {
+  color: var(--fg-dim);
+  font-size: 0.8125rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.option-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.option-card:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.option-card.selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.option-icon {
+  font-size: 1.5rem;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-alt);
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.option-card.selected .option-icon {
+  background: var(--accent);
+  color: #fff;
+}
+.option-text h3 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.option-text p {
+  font-size: 0.8125rem;
+  color: var(--fg-dim);
+  line-height: 1.4;
+}
+
+.check-indicator {
+  margin-left: auto;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.option-card.selected .check-indicator {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.check-indicator svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.option-card.selected .check-indicator svg {
+  opacity: 1;
+}
+
+.qty-row {
+  display: flex;
+  gap: 10px;
+}
+.qty-card {
+  flex: 1;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.qty-card:hover, .qty-card.selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.qty-card .num {
+  font-family: var(--font-en);
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+.qty-card .label {
+  font-size: 0.75rem;
+  color: var(--fg-dim);
+}
+.qty-card.selected .num {
+  color: var(--accent);
+}
+
+.nav-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 28px;
+}
+.btn {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-back {
+  background: var(--surface-alt);
+  color: var(--fg);
+  flex: 0.4;
+}
+.btn-next {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-next:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.btn-next:not(:disabled):hover {
+  background: var(--accent-hover);
+}
+.btn-back:hover {
+  background: var(--border);
+}
+
+.result-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 28px 22px;
+  border: 1px solid var(--border);
+}
+.result-total {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.result-total .label {
+  font-size: 0.8125rem;
+  color: var(--fg-dim);
+  margin-bottom: 6px;
+}
+.result-total .price {
+  font-family: var(--font-en);
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.03em;
+}
+.result-total .per-unit {
+  font-size: 0.8125rem;
+  color: var(--fg-dim);
+  margin-top: 4px;
+}
+
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+.breakdown-item .name {
+  color: var(--fg-dim);
+}
+.breakdown-item .val {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.breakdown-item.discount .val {
+  color: var(--accent);
+}
+.breakdown-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 6px 0;
+}
+
+.contact-section {
+  margin-top: 28px;
+  text-align: center;
+}
+.contact-section p {
+  color: var(--fg-dim);
+  font-size: 0.8125rem;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: filter 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.contact-btn:hover {
+  background: var(--accent-hover);
+}
+
+.result-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.copy-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.copy-btn:hover {
+  background: var(--accent-soft);
+}
+.copy-btn.copied {
+  border-color: #22a867;
+  color: #22a867;
+  background: transparent;
+}
+
+.restart-btn {
+  display: block;
+  margin: 16px auto 0;
+  background: none;
+  border: none;
+  color: var(--fg-dim);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  padding: 8px 16px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.note {
+  margin-top: 24px;
+  padding: 14px 16px;
+  background: var(--surface-alt);
+  border-radius: 10px;
+  font-size: 0.75rem;
+  color: var(--fg-dim);
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="header">
+    <svg class="logo" viewBox="10 20 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(60 60)">
+        <rect x="-12" y="-28" width="24" height="44" rx="2.5" fill="none" stroke="var(--accent)" stroke-width="2" transform="rotate(0)" opacity="0.95"/>
+        <rect x="-12" y="-28" width="24" height="44" rx="2.5" fill="none" stroke="var(--teal)" stroke-width="2" transform="rotate(72)" opacity="0.75"/>
+        <rect x="-12" y="-28" width="24" height="44" rx="2.5" fill="none" stroke="var(--gold)" stroke-width="2" transform="rotate(144)" opacity="0.55"/>
+        <rect x="-12" y="-28" width="24" height="44" rx="2.5" fill="none" stroke="var(--accent-hover)" stroke-width="2" transform="rotate(216)" opacity="0.4"/>
+        <rect x="-12" y="-28" width="24" height="44" rx="2.5" fill="none" stroke="var(--teal-light)" stroke-width="2" transform="rotate(288)" opacity="0.28"/>
+        <circle cx="0" cy="0" r="4.5" fill="var(--accent)"/>
+      </g>
+    </svg>
+    <h1>粗花</h1>
+    <span class="brand-en">ROUGHCUT</span>
+    <p>回答幾個問題，馬上算出預估價格</p>
+    <p class="tagline">故事成形，影像成花</p>
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="step visible" data-step="serviceType">
+    <div class="step-question">你需要什麼服務？</div>
+    <div class="step-hint">先選服務類型，後面再選細節</div>
+    <div class="options" data-group="serviceType">
+      <div class="option-card" data-value="editOnly">
+        <div class="option-icon">✂️</div>
+        <div class="option-text">
+          <h3>我有素材，幫我剪</h3>
+          <p>你拍好的影片交給我剪輯</p>
+        </div>
+      </div>
+      <div class="option-card" data-value="shootAndEdit">
+        <div class="option-icon">📹</div>
+        <div class="option-text">
+          <h3>幫我拍＋剪</h3>
+          <p>我到現場拍攝，拍完幫你剪好</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-next" disabled>下一步</button>
+    </div>
+  </div>
+
+  <div class="step" data-step="shootHours">
+    <div class="step-question">拍攝大概幾小時？</div>
+    <div class="step-hint">從到場到收工，以小時計費（$300/hr）</div>
+    <div class="qty-row" data-group="shootHours">
+      <div class="qty-card" data-value="2"><span class="num">2</span><span class="label">小時</span></div>
+      <div class="qty-card" data-value="3"><span class="num">3</span><span class="label">小時</span></div>
+      <div class="qty-card" data-value="4"><span class="num">4</span><span class="label">小時</span></div>
+      <div class="qty-card" data-value="6"><span class="num">6</span><span class="label">小時</span></div>
+      <div class="qty-card" data-value="8"><span class="num">8</span><span class="label">小時</span></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back">返回</button>
+      <button class="btn btn-next" disabled>下一步</button>
+    </div>
+  </div>
+
+  <div class="step" data-step="shootLocation">
+    <div class="step-question">拍攝地點在哪？</div>
+    <div class="step-hint">用來估算交通費</div>
+    <div class="options" data-group="shootLocation">
+      <div class="option-card" data-value="local">
+        <div class="option-icon">🏙️</div>
+        <div class="option-text"><h3>花蓮市區</h3><p>不加收交通費</p></div>
+      </div>
+      <div class="option-card" data-value="nearby">
+        <div class="option-icon">🚗</div>
+        <div class="option-text"><h3>花蓮近郊</h3><p>吉安、壽豐、新城，加收 $300</p></div>
+      </div>
+      <div class="option-card" data-value="far">
+        <div class="option-icon">🛣️</div>
+        <div class="option-text"><h3>更遠的地方</h3><p>鳳林、瑞穗、玉里等，加收 $800</p></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back">返回</button>
+      <button class="btn btn-next" disabled>下一步</button>
+    </div>
+  </div>
+
+  <div class="step" data-step="duration">
+    <div class="step-question">成品影片大概多長？</div>
+    <div class="step-hint">選一個最接近的長度</div>
+    <div class="options" data-group="duration">
+      <div class="option-card" data-value="30s">
+        <div class="option-icon">⚡</div>
+        <div class="option-text"><h3>30 秒內</h3><p>快節奏短影音，適合限動或開箱</p></div>
+      </div>
+      <div class="option-card" data-value="60s">
+        <div class="option-icon">🎬</div>
+        <div class="option-text"><h3>30 秒 ～ 1 分鐘</h3><p>標準 Reels / TikTok 長度</p></div>
+      </div>
+      <div class="option-card" data-value="3min">
+        <div class="option-icon">🎞️</div>
+        <div class="option-text"><h3>1 ～ 3 分鐘</h3><p>品牌故事、教學、完整介紹</p></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back">返回</button>
+      <button class="btn btn-next" disabled>下一步</button>
+    </div>
+  </div>
+
+  <div class="step" data-step="addons">
+    <div class="step-question">需要哪些額外服務？</div>
+    <div class="step-hint">可以多選，不選也沒關係（基礎方案已包含剪輯、配樂、轉場）</div>
+    <div class="options" data-group="addons" data-multi="true">
+      <div class="option-card" data-value="subtitle">
+        <div class="option-icon">💬</div>
+        <div class="option-text"><h3>幫我上字幕</h3><p>逐字字幕，讓靜音也能看</p></div>
+        <div class="check-indicator"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="option-card" data-value="textfx">
+        <div class="option-icon">✨</div>
+        <div class="option-text"><h3>加字卡、動態文字</h3><p>重點標題、動態特效字</p></div>
+        <div class="check-indicator"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="option-card" data-value="sfx">
+        <div class="option-icon">🔊</div>
+        <div class="option-text"><h3>音效設計</h3><p>轉場音效、氣氛音效，節奏更到位</p></div>
+        <div class="check-indicator"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="option-card" data-value="color">
+        <div class="option-icon">🎨</div>
+        <div class="option-text"><h3>調色 / 濾鏡</h3><p>統一色調，質感升級</p></div>
+        <div class="check-indicator"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5L5.5 10.5L11.5 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back">返回</button>
+      <button class="btn btn-next">下一步</button>
+    </div>
+  </div>
+
+  <div class="step" data-step="quantity">
+    <div class="step-question">這次要做幾支？</div>
+    <div class="step-hint">一次委託越多支，越划算</div>
+    <div class="qty-row" data-group="quantity">
+      <div class="qty-card" data-value="1"><span class="num">1</span><span class="label">支</span></div>
+      <div class="qty-card" data-value="2"><span class="num">2</span><span class="label">支</span></div>
+      <div class="qty-card" data-value="3"><span class="num">3+</span><span class="label">支（9 折）</span></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back">返回</button>
+      <button class="btn btn-next" disabled>下一步</button>
+    </div>
+  </div>
+
+  <div class="step" data-step="urgency">
+    <div class="step-question">交片時間？</div>
+    <div class="step-hint">一般會在 5～7 個工作天內交件</div>
+    <div class="options" data-group="urgency">
+      <div class="option-card" data-value="normal">
+        <div class="option-icon">📅</div>
+        <div class="option-text"><h3>不趕，照正常時程</h3><p>5～7 個工作天</p></div>
+      </div>
+      <div class="option-card" data-value="rush">
+        <div class="option-icon">🔥</div>
+        <div class="option-text"><h3>趕！3 天內要</h3><p>加收 30% 急件費</p></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back">返回</button>
+      <button class="btn btn-next" disabled>看報價</button>
+    </div>
+  </div>
+
+  <div class="step" data-step="result">
+    <div class="result-card">
+      <div class="result-total">
+        <div class="label">預估總價</div>
+        <div class="price" id="totalPrice">$0</div>
+        <div class="per-unit" id="perUnit"></div>
+      </div>
+      <div class="breakdown" id="breakdown"></div>
+    </div>
+
+    <div class="result-actions">
+      <button class="copy-btn" id="copyBtn" onclick="copyQuote()">
+        <span id="copyIcon">📋</span>
+        <span id="copyText">複製報價單</span>
+      </button>
+    </div>
+
+    <div class="contact-section">
+      <p>價格為預估參考，實際會依素材狀況微調<br>歡迎直接聯繫我討論細節 👇</p>
+      <a href="https://lin.ee/SpKUH9p" target="_blank" rel="noopener" class="contact-btn">💬 LINE 聯繫我</a>
+    </div>
+
+    <button class="restart-btn" onclick="restart()">重新計算</button>
+
+    <div class="note" id="serviceNote"></div>
+    <p style="text-align:center;color:var(--fg-dim);font-size:0.8125rem;margin:24px 0 8px;opacity:0.7;">粗花 ROUGHCUT ・ <span style="font-family:var(--font-mono);font-size:0.6875rem;letter-spacing:0.05em">@by.roughcut</span></p>
+  </div>
+</div>
+
+<script>
+const PRICES = {
+  duration: { '30s': 600, '60s': 900, '3min': 1500 },
+  addons: { subtitle: 200, textfx: 200, sfx: 100, color: 100 },
+  addonNames: { subtitle: '逐字字幕', textfx: '字卡 / 動態文字', sfx: '音效設計', color: '調色 / 濾鏡' },
+  shootRate: 300,
+  transport: { local: 0, nearby: 300, far: 800 },
+  transportLabels: { local: '', nearby: '交通費（近郊）', far: '交通費（遠程）' }
+};
+
+const sel = {
+  serviceType: null, shootHours: null, shootLocation: null,
+  duration: null, addons: [], quantity: null, urgency: null
+};
+
+function getFlow() {
+  const base = ['serviceType'];
+  if (sel.serviceType === 'shootAndEdit') base.push('shootHours', 'shootLocation');
+  base.push('duration', 'addons', 'quantity', 'urgency');
+  return base;
+}
+
+let currentFlowIndex = 0;
+
+function currentStepName() { return getFlow()[currentFlowIndex]; }
+
+function renderProgress() {
+  const flow = getFlow();
+  const bar = document.getElementById('progressBar');
+  bar.innerHTML = '';
+  flow.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'progress-dot' + (i <= currentFlowIndex ? ' active' : '');
+    bar.appendChild(dot);
+  });
+}
+
+function showStep(name) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('visible'));
+  const el = document.querySelector('[data-step="' + name + '"]');
+  if (el) el.classList.add('visible');
+  renderProgress();
+  updateNextBtn();
+}
+
+function updateNextBtn() {
+  const name = currentStepName();
+  const step = document.querySelector('[data-step="' + name + '"]');
+  if (!step) return;
+  const btn = step.querySelector('.btn-next');
+  if (!btn) return;
+  btn.disabled = name === 'addons' ? false : !sel[name];
+}
+
+function goNext() {
+  const flow = getFlow();
+  if (currentFlowIndex >= flow.length - 1) return;
+  currentFlowIndex++;
+  showStep(flow[currentFlowIndex]);
+}
+
+function goBack() {
+  if (currentFlowIndex <= 0) return;
+  currentFlowIndex--;
+  const flow = getFlow();
+  if (currentFlowIndex >= flow.length) currentFlowIndex = flow.length - 1;
+  showStep(flow[currentFlowIndex]);
+}
+
+function goToResult() {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('visible'));
+  document.querySelector('[data-step="result"]').classList.add('visible');
+  document.getElementById('progressBar').style.display = 'none';
+  calculatePrice();
+}
+
+document.addEventListener('click', function(e) {
+  var card = e.target.closest('.option-card');
+  if (!card) return;
+  var container = card.closest('[data-group]');
+  if (!container) return;
+  var group = container.dataset.group;
+  var isMulti = container.dataset.multi === 'true';
+  if (isMulti) {
+    card.classList.toggle('selected');
+    sel[group] = Array.from(container.querySelectorAll('.option-card.selected')).map(function(c) { return c.dataset.value; });
+  } else {
+    container.querySelectorAll('.option-card').forEach(function(c) { c.classList.remove('selected'); });
+    card.classList.add('selected');
+    sel[group] = card.dataset.value;
+  }
+  updateNextBtn();
+});
+
+document.addEventListener('click', function(e) {
+  var card = e.target.closest('.qty-card');
+  if (!card) return;
+  var container = card.closest('[data-group]');
+  if (!container) return;
+  var group = container.dataset.group;
+  container.querySelectorAll('.qty-card').forEach(function(c) { c.classList.remove('selected'); });
+  card.classList.add('selected');
+  sel[group] = card.dataset.value;
+  updateNextBtn();
+});
+
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.btn');
+  if (!btn || btn.disabled) return;
+  if (btn.classList.contains('btn-back')) {
+    goBack();
+  } else if (btn.classList.contains('btn-next')) {
+    if (currentStepName() === 'urgency') goToResult();
+    else goNext();
+  }
+});
+
+function calculatePrice() {
+  var qty = sel.quantity === '3' ? 3 : parseInt(sel.quantity);
+  var basePrice = PRICES.duration[sel.duration];
+  var durationLabels = { '30s': '30 秒內', '60s': '30 秒～1 分鐘', '3min': '1～3 分鐘' };
+  var breakdown = [];
+
+  if (sel.serviceType === 'shootAndEdit') {
+    var shootHrs = parseInt(sel.shootHours);
+    var shootFee = PRICES.shootRate * shootHrs;
+    breakdown.push({ name: '拍攝 ' + shootHrs + ' 小時（$' + PRICES.shootRate + '/hr）', value: shootFee, category: 'shoot' });
+    var transport = PRICES.transport[sel.shootLocation];
+    if (transport > 0) breakdown.push({ name: PRICES.transportLabels[sel.shootLocation], value: transport, category: 'shoot' });
+  }
+
+  breakdown.push({ name: '基礎剪輯（' + durationLabels[sel.duration] + '）', value: basePrice, category: 'edit' });
+
+  var addonTotal = 0;
+  sel.addons.forEach(function(addon) {
+    var price = PRICES.addons[addon];
+    addonTotal += price;
+    breakdown.push({ name: PRICES.addonNames[addon], value: price, category: 'edit' });
+  });
+
+  var shootCost = 0;
+  if (sel.serviceType === 'shootAndEdit') {
+    shootCost = (PRICES.shootRate * parseInt(sel.shootHours)) + PRICES.transport[sel.shootLocation];
+  }
+
+  var editUnitPrice = basePrice + addonTotal;
+  var editSubtotal = editUnitPrice * qty;
+  var discount = qty >= 3 ? Math.round(editSubtotal * 0.1) : 0;
+  var editAfterDiscount = editSubtotal - discount;
+  var subtotalBeforeRush = shootCost + editAfterDiscount;
+  var rushFee = sel.urgency === 'rush' ? Math.round(subtotalBeforeRush * 0.3) : 0;
+  var total = subtotalBeforeRush + rushFee;
+
+  var el = document.getElementById('breakdown');
+  var html = '';
+  var editItems = breakdown.filter(function(item) { return item.category === 'edit'; });
+  editItems.forEach(function(item) {
+    html += '<div class="breakdown-item"><span class="name">' + item.name + '</span><span class="val">$' + item.value.toLocaleString() + '</span></div>';
+  });
+  html += '<div class="breakdown-item" style="margin-top:4px;"><span class="name" style="font-weight:600;color:var(--fg);">單支價格</span><span class="val" style="font-weight:700;">$' + editUnitPrice.toLocaleString() + '</span></div>';
+  html += '<div class="breakdown-divider"></div>';
+  html += '<div class="breakdown-item"><span class="name">剪輯 $' + editUnitPrice.toLocaleString() + ' × ' + qty + ' 支</span><span class="val">$' + editSubtotal.toLocaleString() + '</span></div>';
+
+  if (sel.serviceType === 'shootAndEdit') {
+    html += '<div class="breakdown-divider"></div>';
+    breakdown.filter(function(item) { return item.category === 'shoot'; }).forEach(function(item) {
+      html += '<div class="breakdown-item"><span class="name">' + item.name + '</span><span class="val">$' + item.value.toLocaleString() + '</span></div>';
+    });
+  }
+
+  if (discount > 0) {
+    html += '<div class="breakdown-divider"></div>';
+    html += '<div class="breakdown-item discount"><span class="name">多支優惠 9 折</span><span class="val">-$' + discount.toLocaleString() + '</span></div>';
+  }
+
+  if (rushFee > 0) {
+    if (discount === 0) html += '<div class="breakdown-divider"></div>';
+    html += '<div class="breakdown-item"><span class="name">急件加收 30%</span><span class="val">+$' + rushFee.toLocaleString() + '</span></div>';
+  }
+
+  el.innerHTML = html;
+
+  var noteHtml = '＊ 基礎剪輯包含：素材挑選、排列剪輯、配樂、基本轉場<br>';
+  if (sel.serviceType === 'shootAndEdit') noteHtml += '＊ 拍攝服務包含：到場拍攝、基本運鏡<br>';
+  noteHtml += '＊ 提供 2 次免費修改，超過另計<br>';
+  noteHtml += '＊ 平台：IG Reels / TikTok / 抖音';
+  document.getElementById('serviceNote').innerHTML = noteHtml;
+
+  document.getElementById('totalPrice').textContent = '$' + total.toLocaleString();
+  var perUnitEl = document.getElementById('perUnit');
+  if (qty > 1 && sel.serviceType === 'editOnly') {
+    perUnitEl.textContent = '每支約 $' + Math.round(total / qty).toLocaleString();
+  } else {
+    perUnitEl.textContent = '';
+  }
+}
+
+function restart() {
+  currentFlowIndex = 0;
+  sel.serviceType = null; sel.shootHours = null; sel.shootLocation = null;
+  sel.duration = null; sel.addons = []; sel.quantity = null; sel.urgency = null;
+  document.querySelectorAll('.option-card, .qty-card').forEach(function(c) { c.classList.remove('selected'); });
+  document.getElementById('progressBar').style.display = '';
+  showStep('serviceType');
+}
+
+function generateQuoteText() {
+  var serviceLabels = { editOnly: '素材剪輯', shootAndEdit: '拍攝＋剪輯' };
+  var durationLabels = { '30s': '30 秒內', '60s': '30 秒～1 分鐘', '3min': '1～3 分鐘' };
+  var urgencyLabels = { normal: '正常（5-7 工作天）', rush: '急件（3 天內）' };
+  var locationLabels = { local: '花蓮市區', nearby: '花蓮近郊（吉安/壽豐/新城）', far: '遠程（鳳林/瑞穗/玉里）' };
+  var qty = sel.quantity === '3' ? 3 : parseInt(sel.quantity);
+  var basePrice = PRICES.duration[sel.duration];
+  var line = '─'.repeat(16);
+  var lines = [];
+  lines.push('📋 粗花 ROUGHCUT ─ 報價單');
+  lines.push(line);
+  lines.push('服務類型：' + serviceLabels[sel.serviceType]);
+  if (sel.serviceType === 'shootAndEdit') {
+    lines.push('拍攝時間：' + sel.shootHours + ' 小時');
+    lines.push('拍攝地點：' + locationLabels[sel.shootLocation]);
+  }
+  lines.push('成品長度：' + durationLabels[sel.duration]);
+  if (sel.addons.length > 0) {
+    lines.push('額外服務：' + sel.addons.map(function(a) { return PRICES.addonNames[a]; }).join('、'));
+  }
+  lines.push('數量：' + qty + ' 支');
+  lines.push('交件時間：' + urgencyLabels[sel.urgency]);
+  lines.push(line);
+  if (sel.serviceType === 'shootAndEdit') {
+    var shootHrs = parseInt(sel.shootHours);
+    lines.push('拍攝 ' + shootHrs + ' 小時　$' + (PRICES.shootRate * shootHrs).toLocaleString());
+    var transport = PRICES.transport[sel.shootLocation];
+    if (transport > 0) lines.push(PRICES.transportLabels[sel.shootLocation] + '　$' + transport.toLocaleString());
+  }
+  lines.push('基礎剪輯（' + durationLabels[sel.duration] + '）　$' + basePrice.toLocaleString());
+  var addonTotal = 0;
+  sel.addons.forEach(function(addon) {
+    var price = PRICES.addons[addon];
+    addonTotal += price;
+    lines.push(PRICES.addonNames[addon] + '　$' + price.toLocaleString());
+  });
+  var editUnitPrice = basePrice + addonTotal;
+  var editSubtotal = editUnitPrice * qty;
+  if (qty > 1) lines.push('剪輯 × ' + qty + ' 支　$' + editSubtotal.toLocaleString());
+  var discount = 0;
+  if (qty >= 3) {
+    discount = Math.round(editSubtotal * 0.1);
+    lines.push('多支優惠 9 折　-$' + discount.toLocaleString());
+  }
+  var shootCost = 0;
+  if (sel.serviceType === 'shootAndEdit') {
+    shootCost = (PRICES.shootRate * parseInt(sel.shootHours)) + PRICES.transport[sel.shootLocation];
+  }
+  var editAfterDiscount = editSubtotal - discount;
+  var subtotalBeforeRush = shootCost + editAfterDiscount;
+  var rushFee = 0;
+  if (sel.urgency === 'rush') {
+    rushFee = Math.round(subtotalBeforeRush * 0.3);
+    lines.push('急件加收 30%　+$' + rushFee.toLocaleString());
+  }
+  var total = subtotalBeforeRush + rushFee;
+  lines.push(line);
+  lines.push('💰 預估總價：$' + total.toLocaleString());
+  if (qty > 1 && sel.serviceType === 'editOnly') {
+    lines.push('（每支約 $' + Math.round(total / qty).toLocaleString() + '）');
+  }
+  lines.push('');
+  lines.push('＊ 價格為預估，實際依素材狀況微調');
+  lines.push('＊ 含 2 次免費修改');
+  lines.push('＊ 平台：IG Reels / TikTok / 抖音');
+  lines.push('');
+  lines.push('粗花 ROUGHCUT ┃ @by.roughcut');
+  return lines.join('\n');
+}
+
+function copyQuote() {
+  var text = generateQuoteText();
+  var btn = document.getElementById('copyBtn');
+  var icon = document.getElementById('copyIcon');
+  var label = document.getElementById('copyText');
+  function onSuccess() {
+    btn.classList.add('copied');
+    icon.textContent = '✅';
+    label.textContent = '已複製！';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      icon.textContent = '📋';
+      label.textContent = '複製報價單';
+    }, 2000);
+  }
+  try {
+    navigator.clipboard.writeText(text).then(onSuccess).catch(function() { fallbackCopy(text); });
+  } catch(e) {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;left:-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    var btn = document.getElementById('copyBtn');
+    btn.classList.add('copied');
+    document.getElementById('copyIcon').textContent = '✅';
+    document.getElementById('copyText').textContent = '已複製！';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      document.getElementById('copyIcon').textContent = '📋';
+      document.getElementById('copyText').textContent = '複製報價單';
+    }, 2000);
+  } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+showStep('serviceType');
+</script>
+
+</body>
+</html>

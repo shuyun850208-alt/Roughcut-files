@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>常見問題｜粗花 ROUGHCUT</title>
+<meta name="description" content="粗花 ROUGHCUT 常見問題 — 服務報價、合作流程、修改交件、取消退款及工程檔說明。">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root {
+  --bg: #F0E6D8;
+  --fg: #141210;
+  --fg-secondary: #5a524a;
+  --accent: #C4603A;
+  --accent-hover: #a8502e;
+  --teal: #4A7B7B;
+  --teal-light: #6BA3A3;
+  --gold: #D49B50;
+  --highlight: #D4785A;
+  --card-bg: #faf6f0;
+  --card-border: rgba(74, 123, 123, 0.15);
+  --divider: rgba(196, 96, 58, 0.15);
+  --section-label: #8a7e72;
+  --hero-gradient: linear-gradient(135deg, #141210 0%, #1e1a16 60%, #2a1f18 100%);
+  --answer-bg: rgba(74, 123, 123, 0.04);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141210;
+    --fg: #e8dfd4;
+    --fg-secondary: #a39888;
+    --accent: #D4785A;
+    --accent-hover: #C4603A;
+    --card-bg: #1e1a16;
+    --card-border: rgba(106, 163, 163, 0.12);
+    --divider: rgba(212, 120, 90, 0.2);
+    --section-label: #8a7e72;
+    --hero-gradient: linear-gradient(135deg, #0a0908 0%, #141210 60%, #1a1512 100%);
+    --answer-bg: rgba(74, 123, 123, 0.06);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Noto Sans TC', 'DM Sans', sans-serif;
+  line-height: 1.75;
+  padding: 0 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  background: var(--hero-gradient);
+  margin: 0 -16px;
+  padding: 3.5rem 24px 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 2.5rem;
+  bottom: 2rem;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.hero-brand {
+  font-family: 'DM Sans', 'Courier New', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 0.75rem;
+  padding-left: 1.25rem;
+}
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  color: #F0E6D8;
+  line-height: 1.3;
+  padding-left: 1.25rem;
+}
+.hero-tagline {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.9rem;
+  color: var(--gold);
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+  letter-spacing: 0.08em;
+}
+.hero-sub {
+  font-size: 0.82rem;
+  color: rgba(240, 230, 216, 0.5);
+  margin-top: 1.25rem;
+  padding-left: 1.25rem;
+}
+
+.content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+.section-group { margin-bottom: 0.5rem; }
+.section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+  padding: 2rem 0 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--card-border);
+}
+
+.faq-item { border-bottom: 1px solid var(--divider); }
+.faq-item:last-child { border-bottom: none; }
+.faq-question {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--fg);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.6;
+  transition: color 0.2s;
+}
+.faq-question:hover { color: var(--accent); }
+.faq-question:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.q-number {
+  font-family: 'DM Sans', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 1.8rem;
+  padding-top: 0.15rem;
+  flex-shrink: 0;
+}
+.q-text { flex: 1; min-width: 0; }
+.q-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  transition: transform 0.3s ease;
+  color: var(--fg-secondary);
+}
+.faq-item[open] .q-icon {
+  transform: rotate(45deg);
+  color: var(--accent);
+}
+
+.faq-answer {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+  padding: 0 0 0 2.55rem;
+}
+.faq-item[open] .faq-answer {
+  max-height: 2000px;
+  opacity: 1;
+  padding: 0 0 1.25rem 2.55rem;
+}
+.faq-answer-inner {
+  background: var(--answer-bg);
+  border-left: 2px solid var(--teal);
+  padding: 1rem 1.25rem;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: var(--fg-secondary);
+}
+.faq-answer-inner p { margin-bottom: 0.75rem; }
+.faq-answer-inner p:last-child { margin-bottom: 0; }
+
+.faq-answer-inner .tier-title {
+  font-weight: 700;
+  color: var(--fg);
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.88rem;
+}
+.faq-answer-inner .tier-title:first-child { margin-top: 0; }
+
+.faq-answer-inner .price-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.faq-answer-inner .price-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.2rem 0;
+}
+.faq-answer-inner .price-list li .item { color: var(--fg); }
+.faq-answer-inner .price-list li .price {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  color: var(--accent);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.faq-answer-inner .flow-steps {
+  font-size: 0.82rem;
+  color: var(--teal);
+  margin-top: 0.5rem;
+  line-height: 1.8;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.faq-answer-inner .checklist {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.faq-answer-inner .checklist li::before {
+  content: '·';
+  color: var(--accent);
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+.faq-answer-inner .legal-notice {
+  font-size: 0.82rem;
+  color: var(--fg-secondary);
+  line-height: 1.75;
+  padding: 0.75rem 0.85rem;
+  background: var(--divider);
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.footer {
+  text-align: center;
+  padding: 2.5rem 0 1.5rem;
+  border-top: 1px solid var(--divider);
+}
+.footer-prompt {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1rem;
+  color: var(--fg);
+  margin-bottom: 0.5rem;
+}
+.footer-sub {
+  font-size: 0.82rem;
+  color: var(--fg-secondary);
+  margin-bottom: 1.25rem;
+}
+.footer-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--accent);
+  color: #F0E6D8;
+  text-decoration: none;
+  padding: 0.65rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.footer-cta:hover { background: var(--accent-hover); }
+.footer-brand {
+  margin-top: 2rem;
+  font-family: 'DM Sans', 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--section-label);
+}
+.footer-brand-tagline {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.75rem;
+  color: var(--gold);
+  margin-top: 0.25rem;
+  letter-spacing: 0.1em;
+}
+
+.search-wrap {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+.search-input {
+  width: 100%;
+  padding: 0.7rem 1rem 0.7rem 2.5rem;
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  background: var(--card-bg);
+  color: var(--fg);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-input::placeholder { color: var(--section-label); }
+.search-input:focus { border-color: var(--teal); }
+.search-icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  color: var(--section-label);
+}
+.no-results {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--fg-secondary);
+  font-size: 0.88rem;
+  display: none;
+}
+.no-results.show { display: block; }
+
+@media (max-width: 480px) {
+  .hero { padding: 2.5rem 16px 2rem; }
+  .hero h1 { font-size: 1.4rem; }
+  .faq-answer { padding-left: 0; }
+  .faq-item[open] .faq-answer { padding-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-answer { transition: none; }
+  .q-icon { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-brand">ROUGHCUT</div>
+  <h1>常見問題</h1>
+  <p class="hero-tagline">故事成形，影像成花。</p>
+  <p class="hero-sub">關於剪輯與合作，你想知道的都在這裡。</p>
+</div>
+
+<div class="content">
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" class="search-input" placeholder="搜尋問題…" id="searchInput" autocomplete="off">
+  </div>
+  <div id="noResults" class="no-results">找不到相關問題，試試其他關鍵字。</div>
+
+  <div class="section-group" data-section>
+    <div class="section-label">01 服務與報價</div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q1</span>
+        <span class="q-text">粗花提供哪些服務？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>粗花目前提供「純剪輯」及「拍攝＋剪輯」兩種服務。</p>
+        <p>主要製作人物口播、品牌形象、產品介紹、活動紀錄及社群短影音，適用於 IG Reels、TikTok、抖音等平台。</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q2</span>
+        <span class="q-text">基礎剪輯包含哪些內容？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>基礎剪輯包含素材挑選、畫面排列剪輯、配樂及基本轉場。</p>
+        <p>逐字字幕、字卡與動態文字、音效設計及調色等項目，屬於額外加購服務。</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q3</span>
+        <span class="q-text">剪輯費用如何計算？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>依影片長度、加購項目、製作數量，以及是否需要拍攝服務等條件計算。</p>
+        <div class="tier-title">純剪輯基本費用</div>
+        <ul class="price-list">
+          <li><span class="item">30 秒以內</span><span class="price">NT$600／支</span></li>
+          <li><span class="item">30 秒～1 分鐘</span><span class="price">NT$900／支</span></li>
+          <li><span class="item">1～3 分鐘</span><span class="price">NT$1,500／支</span></li>
+        </ul>
+        <div class="tier-title">加購項目</div>
+        <ul class="price-list">
+          <li><span class="item">逐字字幕</span><span class="price">NT$200／支</span></li>
+          <li><span class="item">字卡／動態文字</span><span class="price">NT$200／支</span></li>
+          <li><span class="item">音效設計</span><span class="price">NT$100／支</span></li>
+          <li><span class="item">調色／濾鏡</span><span class="price">NT$100／支</span></li>
+        </ul>
+        <div class="tier-title">拍攝費用</div>
+        <ul class="price-list">
+          <li><span class="item">拍攝服務</span><span class="price">NT$300／小時</span></li>
+          <li><span class="item">花蓮市區交通費</span><span class="price">免費</span></li>
+          <li><span class="item">吉安、壽豐、新城</span><span class="price">NT$300</span></li>
+          <li><span class="item">鳳林、瑞穗、玉里等</span><span class="price">NT$800</span></li>
+        </ul>
+        <p style="margin-top:0.75rem">可使用 LINE 選單中的「報價計算」取得預估價格，實際金額以確認素材與製作需求後的正式報價為準。</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q4</span>
+        <span class="q-text">一次委託多支影片有優惠嗎？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>有的！一次委託 3 支以上影片，剪輯費用享 9 折優惠。</p>
+        <p>優惠僅適用於剪輯費用，不包含拍攝費、交通費及其他加購項目。</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q5</span>
+        <span class="q-text">拍攝服務有地區限制嗎？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>目前主要提供花蓮地區拍攝服務。</p>
+        <p>拍攝費用依時數計算，交通費則依拍攝地點另外計算。</p>
+        <p>其他地區的拍攝需求，可以先透過 LINE 聯繫討論。</p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="section-group" data-section>
+    <div class="section-label">02 合作與製作</div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q6</span>
+        <span class="q-text">第一次合作需要準備什麼？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>建議先提供以下資訊：</p>
+        <ul class="checklist">
+          <li>影片用途與預計發布平台</li>
+          <li>希望製作的影片長度及數量</li>
+          <li>已有的影片素材，或需要拍攝的內容</li>
+          <li>喜歡的參考影片</li>
+          <li>期望交件日期</li>
+        </ul>
+        <p style="margin-top:0.5rem">如果還沒有完整想法，也歡迎先討論，確認適合的製作方向。</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q7</span>
+        <span class="q-text">合作需要先付款嗎？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>是的。確認製作需求及正式報價後，需先支付 50% 訂金，才會安排製作排程。</p>
+        <p>影片完成後，會先提供預覽版本供確認。待修改完成並確認定稿後，支付剩餘 50% 尾款，即可取得正式成品。</p>
+        <div class="flow-steps">需求討論 → 正式報價 → 確認合作條款 → 支付 50% 訂金 → 安排製作 → 初稿預覽 → 修改與定稿 → 支付 50% 尾款 → 正式交件</div>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q8</span>
+        <span class="q-text">影片需要多久才能完成？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>一般案件預估 5～7 個工作天，實際交件日期依案件內容、製作難度及目前排程確認。</p>
+        <p>若需要 3 天內交件，可先提出急件需求。</p>
+        <p>經確認可以承接後，急件將加收 30% 費用。</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q9</span>
+        <span class="q-text">可以提供喜歡的影片作為剪輯參考嗎？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>可以！歡迎提供喜歡的影片作為風格參考，讓我們更了解你期待的呈現方向。</p>
+        <p>實際剪輯效果會依素材品質、影片內容及製作需求進行評估，參考影片不代表能完全還原相同效果。</p>
+        <p>若有特殊剪輯需求，也可以在合作前提出討論，確認是否能製作及相關費用。</p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="section-group" data-section>
+    <div class="section-label">03 修改與交件</div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q10</span>
+        <span class="q-text">影片完成後可以修改嗎？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>每支影片提供 2 次免費修改。</p>
+        <p>修改以雙方原先確認的製作方向為基礎。</p>
+        <p>若涉及大幅變更影片架構、重新剪輯，或新增原報價以外的製作需求，將另行評估費用。</p>
+        <p>超過免費修改次數的調整，也會先報價確認後再進行。</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q11</span>
+        <span class="q-text">可以在製作途中更改需求嗎？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>可以先提出討論。</p>
+        <p>若新增需求或調整內容超出原先確認的製作範圍，可能影響製作費用及交件時間。</p>
+        <p>粗花會先說明調整內容與可能產生的費用，經雙方確認後再進行製作。</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q12</span>
+        <span class="q-text">完成的影片如何交付？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>影片完成後，會先提供預覽版本供確認。</p>
+        <p>待修改完成、確認定稿且尾款結清後，再交付正式成品。</p>
+        <p>實際交付方式及檔案規格，於合作前確認。</p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="section-group" data-section>
+    <div class="section-label">04 取消、退款與工程檔</div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q13</span>
+        <span class="q-text">付款後想取消合作怎麼辦？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <div class="legal-notice">粗花的影片剪輯服務，係依據每位客戶提供的素材與需求量身製作，屬於消費者保護法「通訊交易解除權合理例外情事適用準則」第 2 條第 2 款所定之「依消費者要求所為之客製化給付」，不適用消費者保護法第 19 條第 1 項之七日解除權。粗花將於合作確認前，以書面方式清楚告知上述事項。</div>
+        <p>如需取消合作，請儘早透過 LINE 以文字通知粗花。</p>
+        <p>取消與退款將依案件實際進度辦理：</p>
+        <div class="tier-title">尚未開始製作</div>
+        <p>退還已支付的全部預付款。若粗花已安排製作排程，得酌收合理行政費用，並於退款前提供費用明細。</p>
+        <div class="tier-title">已開始製作或已提供初稿</div>
+        <p>依實際完成的工作比例及已發生的必要支出進行結算，並提供費用明細。如預付款扣除應付金額後仍有餘額，將退還剩餘款項。</p>
+        <div class="tier-title">已完成定稿</div>
+        <p>影片已完成定稿，視同製作完成，客戶應支付全額費用。如有特殊情形，可另行協商。</p>
+        <p>詳細取消與退款條件，會在正式報價及合作確認時提供。</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item" data-faq>
+      <button class="faq-question" aria-expanded="false" onclick="toggle(this)">
+        <span class="q-number">Q14</span>
+        <span class="q-text">可以取得剪輯工程檔嗎？</span>
+        <svg class="q-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        <p>可以，剪輯工程檔加購費用為 <strong style="color:var(--accent)">NT$500／支</strong>。</p>
+        <p>請於合作前提出需求，以便確認檔案格式及可交付內容。</p>
+        <p>目前粗花使用 CapCut（剪映）進行剪輯，工程檔為 CapCut 專案格式，需使用 CapCut 電腦版開啟。</p>
+        <p>工程檔不包含第三方付費素材、音樂、字體或外掛授權，也不保證在不同設備或軟體版本中能完整還原效果。</p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p class="footer-prompt">還有其他問題嗎？</p>
+    <p class="footer-sub">每段影像都有不同的需求，歡迎和粗花聊聊。</p>
+    <a class="footer-cta" href="https://lin.ee/SpKUH9p" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+      LINE 聯繫粗花
+    </a>
+    <p class="footer-brand">ROUGHCUT 粗花</p>
+    <p class="footer-brand-tagline">故事成形，影像成花。</p>
+  </div>
+</div>
+
+<script>
+function toggle(btn) {
+  var item = btn.closest('.faq-item');
+  var isOpen = item.hasAttribute('open');
+  if (isOpen) {
+    item.removeAttribute('open');
+    btn.setAttribute('aria-expanded', 'false');
+  } else {
+    item.setAttribute('open', '');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
+
+var searchInput = document.getElementById('searchInput');
+var noResults = document.getElementById('noResults');
+
+searchInput.addEventListener('input', function() {
+  var query = this.value.trim().toLowerCase();
+  var sections = document.querySelectorAll('[data-section]');
+  var totalVisible = 0;
+
+  sections.forEach(function(section) {
+    var items = section.querySelectorAll('[data-faq]');
+    var sectionVisible = 0;
+
+    items.forEach(function(item) {
+      var qText = item.querySelector('.q-text').textContent.toLowerCase();
+      var aText = item.querySelector('.faq-answer-inner').textContent.toLowerCase();
+      var match = !query || qText.indexOf(query) !== -1 || aText.indexOf(query) !== -1;
+      item.style.display = match ? '' : 'none';
+      if (match) sectionVisible++;
+    });
+
+    var label = section.querySelector('.section-label');
+    if (label) label.style.display = sectionVisible === 0 ? 'none' : '';
+    totalVisible += sectionVisible;
+  });
+
+  noResults.className = (totalVisible === 0 && query) ? 'no-results show' : 'no-results';
+});
+</script>
+
+</body>
+</html>
